@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Centro de Formación Somorrostro — FP Básica Informática. Aprende montaje, redes y desarrollo web con metodología Ethazi." />
+  <title>Somorrostro FP Básica Informática</title>
+
+  <style>
+    /* ===================================================
+       VARIABLES GLOBALES (RUTA A — OSCURO + AZUL + NARANJA)
+       =================================================== */
+    :root {
+      --bg-base:       #0b101b;
+      --bg-card:       #131929;
+      --bg-card-hover: #1a2440;
+      --blue:          #0084ff;
+      --blue-dark:     #0060cc;
+      --orange:        #ff7700;
+      --orange-dark:   #cc5f00;
+      --text-primary:  #e8eaf0;
+      --text-secondary:#9ba8c0;
+      --border:        #1f2d4a;
+      --radius:        12px;
+      --transition:    0.25s ease;
+      --max-w:         1200px;
+    }
+
+    /* ===================================================
+       RESET & BASE
+       =================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      min-width: 320px;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover, a:focus-visible { color: var(--orange); text-decoration: underline; }
+
+    /* Foco accesible visible */
+    :focus-visible {
+      outline: 3px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ===================================================
+       UTILIDADES
+       =================================================== */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: 1.25rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      margin-bottom: 3rem;
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    .accent-blue  { color: var(--blue); }
+    .accent-orange{ color: var(--orange); }
+
+    /* Separador decorativo */
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--orange));
+      border-radius: 999px;
+      margin: 0.75rem auto 1.5rem;
+    }
+
+    /* ===================================================
+       BOTONES
+       =================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(255,119,0,0.35);
+    }
+    .btn-primary:hover, .btn-primary:focus-visible {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(255,119,0,0.45);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+    .btn-secondary:hover, .btn-secondary:focus-visible {
+      background: var(--blue);
+      color: #fff;
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: #fff;
+      width: 100%;
+      justify-content: center;
+      font-size: 1.05rem;
+      padding: 0.95rem;
+      box-shadow: 0 4px 18px rgba(0,132,255,0.3);
+    }
+    .btn-submit:hover, .btn-submit:focus-visible {
+      background: linear-gradient(135deg, var(--blue-dark), #004a9f);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,132,255,0.45);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* ===================================================
+       NAV
+       =================================================== */
+    header nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(11,16,27,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 0.9rem;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-primary);
+    }
+    .nav-logo:hover { color: var(--text-primary); text-decoration: none; }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* Nav oculto en móvil pequeño */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+
+    /* ===================================================
+       HERO
+       =================================================== */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 5rem;
+    }
+
+    /* Fondo animado con gradientes */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0,132,255,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 80% 30%, rgba(255,119,0,0.08) 0%, transparent 60%);
+      animation: heroGlow 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroGlow {
+      from { opacity: 0.6; }
+      to   { opacity: 1; }
+    }
+
+    /* Grid de puntos decorativos */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(0,132,255,0.15);
+      border: 1px solid rgba(0,132,255,0.3);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 8vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title .line-orange {
+      background: linear-gradient(90deg, var(--orange), #ffaa44);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      animation: bounce 2s ease infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ===================================================
+       SECCIONES GENÉRICAS
+       =================================================== */
+    section {
+      padding-block: 5rem;
+    }
+
+    section:nth-of-type(even) {
+      background: rgba(255,255,255,0.02);
+    }
+
+    /* ===================================================
+       TALLERES
+       =================================================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 960px) {
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,132,255,0.15);
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(0,132,255,0.12);
+      border: 1px solid rgba(0,132,255,0.25);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .card-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(255,119,0,0.1);
+      border: 1px solid rgba(255,119,0,0.25);
+      color: var(--orange);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      width: fit-content;
+    }
+
+    /* ===================================================
+       VIDA EN EL CENTRO
+       =================================================== */
+    .vida-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .vida-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .vida-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--orange);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .vida-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(255,119,0,0.12);
+    }
+
+    .vida-num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    .vida-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .vida-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ===================================================
+       CUENTA ATRÁS
+       =================================================== */
+    .countdown-wrap {
+      max-width: 720px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .countdown-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cd-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.6rem;
+      min-width: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cd-block::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--orange));
+    }
+
+    .cd-num {
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--blue);
+      font-variant-numeric: tabular-nums;
+      transition: color 0.3s;
+    }
+
+    .cd-unit {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .countdown-msg {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-top: 1rem;
+    }
+
+    .countdown-msg strong { color: var(--orange); }
+
+    /* Pulso cuando quedan menos de 60 s */
+    .cd-num.pulse {
+      color: var(--orange);
+      animation: cdPulse 0.5s ease infinite alternate;
+    }
+    @keyframes cdPulse {
+      from { opacity: 1; }
+      to   { opacity: 0.4; }
+    }
+
+    /* ===================================================
+       FORMULARIO
+       =================================================== */
+    .form-wrap {
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    .form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 560px) {
+      .form-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: inherit;
+      padding: 0.75rem 1rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(155,168,192,0.5);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0,132,255,0.15);
+    }
+
+    /* Validación visual */
+    .form-group input.valid,
+    .form-group textarea.valid {
+      border-color: #22c55e;
+    }
+
+    .form-group input.invalid,
+    .form-group textarea.invalid {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+    }
+
+    .form-error {
+      font-size: 0.8rem;
+      color: #ef4444;
+      display: none;
+      margin-top: 0.1rem;
+    }
+
+    .form-error.visible { display: block; }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: var(--radius);
+      color: #22c55e;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-success.visible { display: flex; }
+
+    /* ===================================================
+       FOOTER
+       =================================================== */
+    footer {
+      background: rgba(0,0,0,0.4);
+      border-top: 1px solid var(--border);
+      padding-block: 3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .footer-brand strong {
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .footer-brand small {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-links { align-items: flex-end; }
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-links a:hover { color: var(--orange); text-decoration: none; }
+
+    .footer-copy {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      text-align: center;
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+
+    /* ===================================================
+       ANIMACIÓN DE ENTRADA (Intersection Observer)
+       =================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===================================================
+       TARJETAS DE TALLER — interactivas con cursor
+       =================================================== */
+    .card {
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Indicador "Ver más" en la tarjeta */
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: color var(--transition), gap var(--transition);
+    }
+    .card:hover .card-cta { color: var(--orange); gap: 0.6rem; }
+
+    /* ===================================================
+       MODAL DE TALLER — con tabs internos
+       =================================================== */
+
+    /* Overlay oscuro */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(5, 8, 16, 0.88);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Panel del modal */
+    .modal-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) * 1.5);
+      max-width: 680px;
+      width: 100%;
+      /* altura fija para que las tabs no cambien el tamaño */
+      max-height: 92svh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transform: translateY(36px) scale(0.96);
+      transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+      opacity: 0;
+      border-top: 3px solid var(--blue);
+      overflow: hidden; /* clips las tabs */
+    }
+    .modal-overlay.open .modal-panel {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    /* Cabecera fija del modal */
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.75rem 2rem 0;
+      padding-right: 3.5rem; /* espacio botón cerrar */
+      flex-shrink: 0;
+    }
+    @media (max-width: 480px) {
+      .modal-header { padding: 1.25rem 1.25rem 0; padding-right: 3rem; }
+    }
+
+    .modal-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(0,132,255,0.12);
+      border: 1px solid rgba(0,132,255,0.3);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .modal-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.2rem;
+    }
+
+    /* Botón cerrar (×) */
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+      z-index: 2;
+    }
+    .modal-close:hover {
+      background: rgba(255,119,0,0.18);
+      color: var(--orange);
+      transform: rotate(90deg);
+    }
+
+    /* ---- BARRA DE TABS ---- */
+    .modal-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-top: 1.25rem;
+      flex-shrink: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .modal-tabs::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 80px;
+      padding: 0.7rem 0.5rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--text-primary); background: rgba(255,255,255,0.03); }
+    .tab-btn.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+      background: rgba(0,132,255,0.05);
+    }
+
+    /* ---- CONTENIDO DE TABS ---- */
+    .modal-body {
+      flex: 1;
+      overflow: hidden; /* contenedor del slider */
+      position: relative;
+    }
+
+    /* Slider horizontal: todos los paneles en fila */
+    .tab-slider {
+      display: flex;
+      height: 100%;
+      transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+      will-change: transform;
+    }
+
+    .tab-panel {
+      flex: 0 0 100%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 1.75rem 2rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    @media (max-width: 480px) {
+      .tab-panel { padding: 1.25rem; }
+    }
+
+    /* Título de apartado dentro del panel */
+    .tab-panel-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tab-panel-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .tab-panel p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    /* Lista de habilidades (chips) */
+    .modal-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0;
+    }
+    .modal-skills li {
+      background: rgba(0,132,255,0.1);
+      border: 1px solid rgba(0,132,255,0.22);
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .modal-skills li:hover {
+      background: rgba(0,132,255,0.2);
+      border-color: var(--blue);
+    }
+
+    /* Reto Ethazi: caja destacada */
+    .reto-box {
+      background: rgba(255,119,0,0.07);
+      border: 1px solid rgba(255,119,0,0.22);
+      border-left: 4px solid var(--orange);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.72;
+      margin-top: 0.25rem;
+    }
+
+    /* Barra de nivel */
+    .level-wrap { margin-top: 0.5rem; }
+    .level-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+    .level-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .level-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--orange));
+      width: 0%;
+      transition: width 0.9s cubic-bezier(0.4,0,0.2,1) 0.15s;
+    }
+
+    /* Duración / dato extra */
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row strong { color: var(--text-primary); font-weight: 700; min-width: 110px; }
+    .info-row span   { color: var(--text-secondary); }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ======================================
+       NAV FIJA
+       ====================================== -->
+  <header>
+    <nav aria-label="Navegación principal">
+      <div class="container nav-inner">
+
+        <!-- Logo -->
+        <a href="#" class="nav-logo" aria-label="Inicio — Somorrostro FP Básica">
+          <span aria-hidden="true">⚡</span>
+          <span><span class="accent-blue">Somo</span>rrostro</span>
+        </a>
+
+        <!-- Menú (oculto en móviles pequeños) -->
+        <ul class="nav-links" role="list">
+          <li><a href="#talleres">Talleres</a></li>
+          <li><a href="#vida">El Centro</a></li>
+          <li><a href="#countdown">Cuenta Atrás</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ======================================
+         1. HERO
+         ====================================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content">
+
+          <!-- Badge -->
+          <p class="hero-badge" aria-label="Categoría: FP Básica de Informática con metodología Ethazi">
+            <span aria-hidden="true">🎓</span>
+            FP Básica · Informática · Ethazi
+          </p>
+
+          <!-- Título principal -->
+          <h1 class="hero-title" id="hero-title">
+            Tu futuro<br/>
+            empieza con<br/>
+            <span class="line-orange">código y cables.</span>
+          </h1>
+
+          <!-- Subtítulo -->
+          <p class="hero-sub">
+            En el Centro de Formación Somorrostro aprendemos haciendo:
+            montamos PCs, configuramos redes y construimos webs reales.
+            Metodología <strong>Ethazi</strong>, compañerismo de verdad
+            y retos que sí importan.
+          </p>
+
+          <!-- Acciones -->
+          <div class="hero-actions">
+            <a href="#contacto" class="btn btn-primary" aria-label="Ir al formulario de contacto">
+              <span aria-hidden="true">✉️</span>
+              Escríbenos
+            </a>
+            <a href="#talleres" class="btn btn-secondary" aria-label="Ver los talleres de informática">
+              <span aria-hidden="true">🔧</span>
+              Ver talleres
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Indicador de scroll -->
+      <div class="scroll-hint" aria-hidden="true">
+        <svg width="20" height="30" viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="18" height="28" rx="9" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.4"/>
+          <circle cx="10" cy="8" r="3" fill="currentColor" fill-opacity="0.5">
+            <animate attributeName="cy" from="8" to="20" dur="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="1" to="0" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        Scroll
+      </div>
+
+    </section>
+
+
+    <!-- ======================================
+         2. TALLERES DE INFORMÁTICA
+         ====================================== -->
+    <section id="talleres" aria-labelledby="talleres-title">
+      <div class="container">
+
+        <h2 class="section-title" id="talleres-title">
+          Talleres de <span class="accent-blue">informática</span>
+        </h2>
+        <div class="divider" aria-hidden="true"></div>
+        <p class="section-subtitle">
+          Aprende haciendo. Cada taller es un reto real que te prepara para el mundo profesional.
+        </p>
+
+        <!-- 3 tarjetas -->
+        <div class="cards-grid">
+
+          <!-- Tarjeta 1: Montaje — data-modal abre el modal correspondiente -->
+          <article class="card reveal" data-modal="montaje" role="button" tabindex="0"
+                   aria-label="Taller de montaje de componentes — haz clic para más información">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="7" y="7" width="10" height="10" rx="1" stroke="#0084ff" stroke-width="1.8"/>
+                <path d="M9 1v3M12 1v3M15 1v3M9 20v3M12 20v3M15 20v3M1 9h3M1 12h3M1 15h3M20 9h3M20 12h3M20 15h3"
+                      stroke="#0084ff" stroke-width="1.8" stroke-linecap="round"/>
+                <rect x="9.5" y="9.5" width="5" height="5" rx="0.5" fill="#0084ff" opacity="0.35"/>
+              </svg>
+            </div>
+            <span class="card-tag" aria-hidden="true">🔩 Hardware</span>
+            <h3 class="card-title">Montaje de Componentes</h3>
+            <p class="card-desc">
+              Desde abrir una caja de torre hasta colocar la CPU, aplicar pasta térmica,
+              conectar la RAM y arrancar el sistema desde cero.
+              Si lo montas tú, lo entiendes tú.
+            </p>
+            <span class="card-cta" aria-hidden="true">Ver más →</span>
+          </article>
+
+          <!-- Tarjeta 2: Redes -->
+          <article class="card reveal" data-modal="redes" role="button" tabindex="0"
+                   aria-label="Taller de redes locales — haz clic para más información">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="5"  r="2.5" stroke="#0084ff" stroke-width="1.8"/>
+                <circle cx="4"  cy="19" r="2.5" stroke="#0084ff" stroke-width="1.8"/>
+                <circle cx="20" cy="19" r="2.5" stroke="#0084ff" stroke-width="1.8"/>
+                <path d="M12 7.5 L4.8 16.8M12 7.5 L19.2 16.8M5.5 19 H18.5"
+                      stroke="#0084ff" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="card-tag" aria-hidden="true">📡 Redes</span>
+            <h3 class="card-title">Redes Locales</h3>
+            <p class="card-desc">
+              Crimpamos cables RJ-45, configuramos routers y switches, asignamos IPs
+              y solucionamos problemas de conectividad.
+              La red es tuya cuando sabes cómo funciona.
+            </p>
+            <span class="card-cta" aria-hidden="true">Ver más →</span>
+          </article>
+
+          <!-- Tarjeta 3: Webs -->
+          <article class="card reveal" data-modal="webs" role="button" tabindex="0"
+                   aria-label="Taller de creación de páginas web — haz clic para más información">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 6 L2 12 L8 18" stroke="#0084ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 6 L22 12 L16 18" stroke="#0084ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 4 L10 20" stroke="#0084ff" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+              </svg>
+            </div>
+            <span class="card-tag" aria-hidden="true">🌐 Web</span>
+            <h3 class="card-title">Creación de Webs</h3>
+            <p class="card-desc">
+              HTML, CSS y JavaScript desde el primer día. Publicamos proyectos reales
+              y aprendemos por retos Ethazi: tu web, tu nombre, tu portafolio.
+            </p>
+            <span class="card-cta" aria-hidden="true">Ver más →</span>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================
+         MODALES DE TALLER — 4 TABS cada uno
+         Tabs: Descripción · Reto Ethazi · Herramientas · Nivel
+         ====================================== -->
+
+    <!-- ── MODAL 1: MONTAJE DE COMPONENTES ── -->
+    <div class="modal-overlay" id="modal-montaje" role="dialog" aria-modal="true"
+         aria-labelledby="modal-montaje-title">
+      <div class="modal-panel">
+
+        <!-- Botón cerrar -->
+        <button class="modal-close" aria-label="Cerrar">✕</button>
+
+        <!-- Cabecera -->
+        <div class="modal-header">
+          <div class="modal-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <rect x="7" y="7" width="10" height="10" rx="1" stroke="#0084ff" stroke-width="1.8"/>
+              <path d="M9 1v3M12 1v3M15 1v3M9 20v3M12 20v3M15 20v3M1 9h3M1 12h3M1 15h3M20 9h3M20 12h3M20 15h3"
+                    stroke="#0084ff" stroke-width="1.8" stroke-linecap="round"/>
+              <rect x="9.5" y="9.5" width="5" height="5" rx="0.5" fill="#0084ff" opacity="0.35"/>
+            </svg>
+          </div>
+          <div>
+            <div class="modal-tag">🔩 Hardware · Taller 1</div>
+            <h2 class="modal-title" id="modal-montaje-title">Montaje de Componentes</h2>
+          </div>
+        </div>
+
+        <!-- Barra de tabs -->
+        <nav class="modal-tabs" role="tablist" aria-label="Apartados del taller">
+          <button class="tab-btn active" role="tab" aria-selected="true"  data-tab="0">📖 Descripción</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="1">🎯 Reto</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="2">🛠 Herramientas</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="3">📊 Nivel</button>
+        </nav>
+
+        <!-- Slider de contenido -->
+        <div class="modal-body">
+          <div class="tab-slider">
+
+            <!-- Panel 0: Descripción -->
+            <div class="tab-panel" role="tabpanel" aria-label="Descripción del taller">
+              <div class="tab-panel-title">¿Qué aprenderás?</div>
+              <p>
+                En este taller partimos de cero: identificamos cada pieza de un ordenador,
+                entendemos para qué sirve y la montamos con nuestras propias manos.
+              </p>
+              <p>
+                Desde el chasis hasta el primer arranque del sistema operativo: colocación correcta
+                de la CPU, pasta térmica, módulos de RAM en modo dual-channel, tarjeta gráfica
+                y discos SSD/NVMe. También aprendemos a leer el manual de la placa base
+                y a interpretar los códigos POST cuando algo falla.
+              </p>
+              <p>
+                Al terminar serás capaz de montar un equipo desde piezas sueltas, diagnosticar
+                averías básicas y recomendar componentes según presupuesto y uso.
+              </p>
+              <div class="info-row"><strong>Duración</strong><span>6 semanas</span></div>
+              <div class="info-row"><strong>Modalidad</strong><span>100 % práctica en taller físico</span></div>
+              <div class="info-row"><strong>Evaluación</strong><span>PC funcionando + informe técnico</span></div>
+            </div>
+
+            <!-- Panel 1: Reto Ethazi -->
+            <div class="tab-panel" role="tabpanel" aria-label="Reto Ethazi del taller">
+              <div class="tab-panel-title">🎯 Reto Ethazi</div>
+              <div class="reto-box">
+                Montar un PC funcional desde piezas sueltas, instalar el sistema operativo
+                (Windows 11 o Ubuntu) y entregar un informe técnico con foto y diagnóstico
+                de cada componente. ¡El PC que montes es el que usarás el resto del trimestre!
+              </div>
+              <p style="margin-top:1.25rem;">
+                El reto se trabaja en equipos de 2 personas. Cada equipo recibe una caja
+                con todas las piezas y tiene que organizarse para montar, configurar y
+                documentar el proceso completo en un plazo de 3 sesiones de taller.
+              </p>
+              <p>
+                La presentación final es oral: explicáis cada decisión de montaje
+                al resto de la clase y respondéis preguntas. Aprendes a defender tu trabajo.
+              </p>
+              <div class="info-row"><strong>Equipos</strong><span>Parejas (2 personas)</span></div>
+              <div class="info-row"><strong>Plazo</strong><span>3 sesiones de taller</span></div>
+              <div class="info-row"><strong>Presentación</strong><span>Oral + demostración en vivo</span></div>
+            </div>
+
+            <!-- Panel 2: Herramientas -->
+            <div class="tab-panel" role="tabpanel" aria-label="Herramientas del taller">
+              <div class="tab-panel-title">🛠 Herramientas y materiales</div>
+              <p>Todo el material lo facilita el centro. Esto es con lo que trabajamos:</p>
+              <ul class="modal-skills">
+                <li>Destornilladores de precisión</li>
+                <li>Pasta térmica</li>
+                <li>Pulsera antiestática</li>
+                <li>Multímetro</li>
+                <li>POST card diagnóstico</li>
+                <li>Windows 11</li>
+                <li>Ubuntu 24 LTS</li>
+                <li>CPU-Z</li>
+                <li>HWiNFO64</li>
+                <li>CrystalDiskInfo</li>
+                <li>MemTest86</li>
+              </ul>
+              <p style="margin-top:1.25rem;">
+                También usamos software de diagnóstico para comprobar que cada componente
+                funciona correctamente antes de dar el reto por completado.
+              </p>
+            </div>
+
+            <!-- Panel 3: Nivel -->
+            <div class="tab-panel" role="tabpanel" aria-label="Nivel del taller">
+              <div class="tab-panel-title">📊 Nivel del reto</div>
+              <div class="level-wrap">
+                <div class="level-meta"><span>Dificultad general</span><span>70 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="70"></div></div>
+              </div>
+              <div class="level-wrap" style="margin-top:1.25rem;">
+                <div class="level-meta"><span>Trabajo en equipo</span><span>85 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="85"></div></div>
+              </div>
+              <div class="level-wrap" style="margin-top:1.25rem;">
+                <div class="level-meta"><span>Documentación</span><span>60 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="60"></div></div>
+              </div>
+              <p style="margin-top:1.5rem;">
+                Este taller está pensado para quien no ha tocado nunca un PC por dentro.
+                No hace falta experiencia previa: el profesorado guía cada paso.
+              </p>
+              <div class="info-row"><strong>Prerequisitos</strong><span>Ninguno</span></div>
+              <div class="info-row"><strong>Nota mínima</strong><span>PC arrancando + informe entregado</span></div>
+            </div>
+
+          </div><!-- /.tab-slider -->
+        </div><!-- /.modal-body -->
+
+      </div><!-- /.modal-panel -->
+    </div><!-- /#modal-montaje -->
+
+
+    <!-- ── MODAL 2: REDES LOCALES ── -->
+    <div class="modal-overlay" id="modal-redes" role="dialog" aria-modal="true"
+         aria-labelledby="modal-redes-title">
+      <div class="modal-panel">
+
+        <button class="modal-close" aria-label="Cerrar">✕</button>
+
+        <div class="modal-header">
+          <div class="modal-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="5"  r="2.5" stroke="#0084ff" stroke-width="1.8"/>
+              <circle cx="4"  cy="19" r="2.5" stroke="#0084ff" stroke-width="1.8"/>
+              <circle cx="20" cy="19" r="2.5" stroke="#0084ff" stroke-width="1.8"/>
+              <path d="M12 7.5 L4.8 16.8M12 7.5 L19.2 16.8M5.5 19 H18.5"
+                    stroke="#0084ff" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="modal-tag">📡 Redes · Taller 2</div>
+            <h2 class="modal-title" id="modal-redes-title">Redes Locales</h2>
+          </div>
+        </div>
+
+        <nav class="modal-tabs" role="tablist" aria-label="Apartados del taller">
+          <button class="tab-btn active" role="tab" aria-selected="true"  data-tab="0">📖 Descripción</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="1">🎯 Reto</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="2">🛠 Herramientas</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="3">📊 Nivel</button>
+        </nav>
+
+        <div class="modal-body">
+          <div class="tab-slider">
+
+            <!-- Panel 0 -->
+            <div class="tab-panel" role="tabpanel" aria-label="Descripción del taller">
+              <div class="tab-panel-title">¿Qué aprenderás?</div>
+              <p>
+                Aprenderemos a diseñar e implementar una red de área local (LAN) desde cero.
+                Crimpamos nuestros propios cables RJ-45 (Cat5e y Cat6) y comprobamos su
+                continuidad con un tester.
+              </p>
+              <p>
+                Configuramos switches no gestionados, asignamos direcciones IP de forma estática
+                y automática (DHCP) y diagnosticamos fallos de conectividad usando herramientas
+                de línea de comandos: <code>ping</code>, <code>tracert</code>, <code>ipconfig</code> y <code>nslookup</code>.
+              </p>
+              <p>
+                Al terminar sabrás montar una red de oficina pequeña, detectar problemas
+                de conectividad y documentar la topología de la red.
+              </p>
+              <div class="info-row"><strong>Duración</strong><span>5 semanas</span></div>
+              <div class="info-row"><strong>Modalidad</strong><span>Práctica en taller + simulador</span></div>
+              <div class="info-row"><strong>Evaluación</strong><span>Red funcionando + mapa documentado</span></div>
+            </div>
+
+            <!-- Panel 1 -->
+            <div class="tab-panel" role="tabpanel" aria-label="Reto Ethazi del taller">
+              <div class="tab-panel-title">🎯 Reto Ethazi</div>
+              <div class="reto-box">
+                Montar una red funcional para el aula con al menos 10 dispositivos,
+                segmentada en dos grupos (alumnado y profesorado), con acceso a internet
+                y mapa de red documentado. Si la red cae durante la evaluación, la levantáis en vivo.
+              </div>
+              <p style="margin-top:1.25rem;">
+                El equipo completo es responsable de que la red funcione el día de la presentación.
+                Se evalúa tanto la parte técnica como la capacidad de explicar las decisiones
+                de diseño: ¿por qué ese esquema de IPs? ¿por qué ese switch en ese punto?
+              </p>
+              <div class="info-row"><strong>Equipos</strong><span>Grupos de 3-4 personas</span></div>
+              <div class="info-row"><strong>Plazo</strong><span>4 sesiones de taller</span></div>
+              <div class="info-row"><strong>Presentación</strong><span>Demostración en directo</span></div>
+            </div>
+
+            <!-- Panel 2 -->
+            <div class="tab-panel" role="tabpanel" aria-label="Herramientas del taller">
+              <div class="tab-panel-title">🛠 Herramientas y materiales</div>
+              <p>Combinamos hardware real con simuladores para afianzar conceptos:</p>
+              <ul class="modal-skills">
+                <li>Crimpeadora RJ-45</li>
+                <li>Cable UTP Cat5e / Cat6</li>
+                <li>Tester de red</li>
+                <li>Switch Cisco / TP-Link</li>
+                <li>Router doméstico</li>
+                <li>ping · tracert</li>
+                <li>ipconfig · nslookup</li>
+                <li>Wireshark</li>
+                <li>Cisco Packet Tracer</li>
+              </ul>
+              <p style="margin-top:1.25rem;">
+                Wireshark nos permite ver en tiempo real qué paquetes viajan por la red
+                y detectar problemas de forma visual. ¡Es como tener rayos X para los datos!
+              </p>
+            </div>
+
+            <!-- Panel 3 -->
+            <div class="tab-panel" role="tabpanel" aria-label="Nivel del taller">
+              <div class="tab-panel-title">📊 Nivel del reto</div>
+              <div class="level-wrap">
+                <div class="level-meta"><span>Dificultad general</span><span>60 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="60"></div></div>
+              </div>
+              <div class="level-wrap" style="margin-top:1.25rem;">
+                <div class="level-meta"><span>Diagnóstico de fallos</span><span>75 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="75"></div></div>
+              </div>
+              <div class="level-wrap" style="margin-top:1.25rem;">
+                <div class="level-meta"><span>Documentación de red</span><span>65 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="65"></div></div>
+              </div>
+              <p style="margin-top:1.5rem;">
+                El mayor reto no es técnico sino organizativo: coordinar al equipo
+                para que todos sepan qué cable van a crimpar y por qué va a ese puerto.
+              </p>
+              <div class="info-row"><strong>Prerequisitos</strong><span>Taller de Montaje completado</span></div>
+              <div class="info-row"><strong>Nota mínima</strong><span>Red activa + mapa entregado</span></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /#modal-redes -->
+
+
+    <!-- ── MODAL 3: CREACIÓN DE WEBS ── -->
+    <div class="modal-overlay" id="modal-webs" role="dialog" aria-modal="true"
+         aria-labelledby="modal-webs-title">
+      <div class="modal-panel">
+
+        <button class="modal-close" aria-label="Cerrar">✕</button>
+
+        <div class="modal-header">
+          <div class="modal-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <path d="M8 6 L2 12 L8 18" stroke="#0084ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 6 L22 12 L16 18" stroke="#0084ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 4 L10 20" stroke="#0084ff" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="modal-tag">🌐 Desarrollo Web · Taller 3</div>
+            <h2 class="modal-title" id="modal-webs-title">Creación de Webs</h2>
+          </div>
+        </div>
+
+        <nav class="modal-tabs" role="tablist" aria-label="Apartados del taller">
+          <button class="tab-btn active" role="tab" aria-selected="true"  data-tab="0">📖 Descripción</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="1">🎯 Reto</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="2">🛠 Herramientas</button>
+          <button class="tab-btn"        role="tab" aria-selected="false" data-tab="3">📊 Nivel</button>
+        </nav>
+
+        <div class="modal-body">
+          <div class="tab-slider">
+
+            <!-- Panel 0 -->
+            <div class="tab-panel" role="tabpanel" aria-label="Descripción del taller">
+              <div class="tab-panel-title">¿Qué aprenderás?</div>
+              <p>
+                Empezamos con HTML semántico para estructurar contenido correctamente
+                (cabeceras, listas, formularios, tablas), pasamos a CSS para diseñar
+                páginas responsive que se vean bien en móvil y en escritorio,
+                y terminamos con JavaScript para añadir interactividad real.
+              </p>
+              <p>
+                Formularios con validación, menús de navegación, contadores en tiempo real,
+                animaciones de scroll… todo lo que ves en esta misma página es el resultado
+                de lo que aprendemos en clase.
+              </p>
+              <p>
+                Al terminar tendrás publicado tu propio portfolio en internet,
+                visible desde cualquier dispositivo del mundo.
+              </p>
+              <div class="info-row"><strong>Duración</strong><span>8 semanas</span></div>
+              <div class="info-row"><strong>Modalidad</strong><span>Práctica en aula + publicación online</span></div>
+              <div class="info-row"><strong>Evaluación</strong><span>Portfolio publicado + defensa oral</span></div>
+            </div>
+
+            <!-- Panel 1 -->
+            <div class="tab-panel" role="tabpanel" aria-label="Reto Ethazi del taller">
+              <div class="tab-panel-title">🎯 Reto Ethazi</div>
+              <div class="reto-box">
+                Crear y publicar tu portfolio personal en GitHub Pages. Debe incluir
+                una página de presentación, un listado de proyectos con capturas
+                y un formulario de contacto. Se presenta en vivo al resto de la clase:
+                defiendes tu web y explicas cada decisión de diseño.
+              </div>
+              <p style="margin-top:1.25rem;">
+                Este reto es individual: tu web, tu nombre, tu identidad digital.
+                El objetivo es que al salir del módulo tengas algo real que mostrar
+                en una entrevista de trabajo o prácticas.
+              </p>
+              <p>
+                El profesor y los compañeros dan feedback en tiempo real durante
+                la presentación. Aprenderás tanto de tus errores como de los de los demás.
+              </p>
+              <div class="info-row"><strong>Equipos</strong><span>Individual</span></div>
+              <div class="info-row"><strong>Plazo</strong><span>6 sesiones de desarrollo</span></div>
+              <div class="info-row"><strong>Presentación</strong><span>Defensa oral + URL publicada</span></div>
+            </div>
+
+            <!-- Panel 2 -->
+            <div class="tab-panel" role="tabpanel" aria-label="Herramientas del taller">
+              <div class="tab-panel-title">🛠 Herramientas y materiales</div>
+              <p>Tecnologías estándar del sector, sin frameworks ni librerías — solo la base:</p>
+              <ul class="modal-skills">
+                <li>HTML5 semántico</li>
+                <li>CSS3</li>
+                <li>Flexbox</li>
+                <li>CSS Grid</li>
+                <li>JavaScript ES6+</li>
+                <li>VS Code</li>
+                <li>Git</li>
+                <li>GitHub Pages</li>
+                <li>Chrome DevTools</li>
+                <li>Lighthouse</li>
+                <li>Can I use</li>
+              </ul>
+              <p style="margin-top:1.25rem;">
+                Lighthouse nos da una puntuación de rendimiento, accesibilidad y SEO.
+                El objetivo es llegar a 90+ en todas las categorías antes de la entrega.
+              </p>
+            </div>
+
+            <!-- Panel 3 -->
+            <div class="tab-panel" role="tabpanel" aria-label="Nivel del taller">
+              <div class="tab-panel-title">📊 Nivel del reto</div>
+              <div class="level-wrap">
+                <div class="level-meta"><span>Dificultad general</span><span>55 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="55"></div></div>
+              </div>
+              <div class="level-wrap" style="margin-top:1.25rem;">
+                <div class="level-meta"><span>Diseño responsive</span><span>70 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="70"></div></div>
+              </div>
+              <div class="level-wrap" style="margin-top:1.25rem;">
+                <div class="level-meta"><span>JavaScript interactivo</span><span>65 %</span></div>
+                <div class="level-bar"><div class="level-fill" data-width="65"></div></div>
+              </div>
+              <p style="margin-top:1.5rem;">
+                El mayor reto es el diseño: que algo funcione es fácil,
+                que además se vea bien en un móvil de 360 px ya requiere más cabeza.
+              </p>
+              <div class="info-row"><strong>Prerequisitos</strong><span>Ninguno</span></div>
+              <div class="info-row"><strong>Nota mínima</strong><span>URL activa + código en GitHub</span></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /#modal-webs -->
+
+
+    <!-- ======================================
+         3. VIDA EN EL CENTRO
+         ====================================== -->
+    <section id="vida" aria-labelledby="vida-title">
+      <div class="container">
+
+        <h2 class="section-title" id="vida-title">
+          Vida en el <span class="accent-orange">centro</span>
+        </h2>
+        <div class="divider" aria-hidden="true"></div>
+        <p class="section-subtitle">
+          Tres ventajas reales que marcan la diferencia cuando estudias FP Básica en Somorrostro.
+        </p>
+
+        <div class="vida-grid">
+
+          <!-- Ventaja 1 -->
+          <div class="vida-card reveal">
+            <div class="vida-num" aria-hidden="true">01</div>
+            <h3 class="vida-title">Aprende haciendo, no memorizando</h3>
+            <p class="vida-desc">
+              La metodología Ethazi te lanza retos del mundo real desde el primer día.
+              Nada de exámenes teóricos aburridos: si funciona, apruebas.
+            </p>
+          </div>
+
+          <!-- Ventaja 2 -->
+          <div class="vida-card reveal">
+            <div class="vida-num" aria-hidden="true">02</div>
+            <h3 class="vida-title">Equipo que siempre cubre tus espaldas</h3>
+            <p class="vida-desc">
+              Trabajamos en grupos reducidos. Cuando uno falla, el equipo le echa una mano.
+              Aquí el compañerismo no es opcional, es parte del proceso.
+            </p>
+          </div>
+
+          <!-- Ventaja 3 -->
+          <div class="vida-card reveal">
+            <div class="vida-num" aria-hidden="true">03</div>
+            <h3 class="vida-title">Talleres con material de verdad</h3>
+            <p class="vida-desc">
+              Componentes reales, switches reales, servidores reales. No simulamos:
+              ensamblamos, configuramos y rompemos cosas (con permiso) para aprender a arreglarlas.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================
+         4. CUENTA ATRÁS AL PRÓXIMO VIERNES 14:00
+         ====================================== -->
+    <section id="countdown" aria-labelledby="countdown-title">
+      <div class="container">
+        <div class="countdown-wrap">
+
+          <h2 class="section-title" id="countdown-title">
+            Cuenta atrás al <span class="accent-blue">fin de semana</span>
+          </h2>
+          <div class="divider" aria-hidden="true"></div>
+          <p class="section-subtitle">
+            ¿Cuánto falta para el viernes a las 14:00? Aquí lo sabes en tiempo real.
+          </p>
+
+          <p class="countdown-label" id="cd-target-label" aria-live="polite"></p>
+
+          <!-- Bloques de tiempo -->
+          <div class="countdown-grid" role="timer" aria-label="Cuenta atrás hasta el próximo viernes a las 14:00">
+            <div class="cd-block">
+              <span class="cd-num" id="cd-days"    aria-label="Días restantes">00</span>
+              <span class="cd-unit" aria-hidden="true">Días</span>
+            </div>
+            <div class="cd-block">
+              <span class="cd-num" id="cd-hours"   aria-label="Horas restantes">00</span>
+              <span class="cd-unit" aria-hidden="true">Horas</span>
+            </div>
+            <div class="cd-block">
+              <span class="cd-num" id="cd-minutes" aria-label="Minutos restantes">00</span>
+              <span class="cd-unit" aria-hidden="true">Minutos</span>
+            </div>
+            <div class="cd-block">
+              <span class="cd-num" id="cd-seconds" aria-label="Segundos restantes">00</span>
+              <span class="cd-unit" aria-hidden="true">Segundos</span>
+            </div>
+          </div>
+
+          <p class="countdown-msg" id="cd-msg">
+            Aguanta — <strong>¡el fin de semana llega!</strong>
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================
+         5. FORMULARIO DE CONTACTO
+         ====================================== -->
+    <section id="contacto" aria-labelledby="form-title">
+      <div class="container">
+
+        <h2 class="section-title" id="form-title">
+          ¿Tienes <span class="accent-orange">dudas</span>?
+        </h2>
+        <div class="divider" aria-hidden="true"></div>
+        <p class="section-subtitle">
+          Escríbeme directamente. Respondo desde mi correo de estudiante de Somorrostro.
+        </p>
+
+        <div class="form-wrap reveal">
+
+          <!-- Mensaje de éxito (oculto por defecto) -->
+          <div class="form-success" id="form-success" role="alert" aria-live="assertive">
+            <span aria-hidden="true" style="font-size:2rem;">✅</span>
+            <span>¡Mensaje preparado! Se abrirá tu cliente de correo para enviarlo.</span>
+          </div>
+
+          <!--
+            FORMULARIO — Reemplaza TU_CORREO@... con tu email real de estudiante.
+            El action usa mailto: para abrir el cliente de correo del usuario.
+          -->
+          <form
+            id="contact-form"
+            action="mailto:lander.zarzuelo07@estudiante.somorrostro.eus"
+            method="POST"
+            enctype="text/plain"
+            novalidate
+            aria-label="Formulario de contacto"
+          >
+            <div class="form-grid">
+
+              <!-- Fila: nombre + email -->
+              <div class="form-row">
+
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Tu nombre"
+                    autocomplete="name"
+                    required
+                    aria-required="true"
+                    aria-describedby="nombre-error"
+                  />
+                  <span class="form-error" id="nombre-error" role="alert">
+                    Por favor, escribe tu nombre.
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="tu@email.com"
+                    autocomplete="email"
+                    required
+                    aria-required="true"
+                    aria-describedby="email-error"
+                  />
+                  <span class="form-error" id="email-error" role="alert">
+                    Introduce un email válido.
+                  </span>
+                </div>
+
+              </div>
+
+              <!-- Mensaje -->
+              <div class="form-group">
+                <label for="mensaje">Mensaje</label>
+                <textarea
+                  id="mensaje"
+                  name="mensaje"
+                  placeholder="¿Qué quieres saber sobre FP Básica de Informática?"
+                  rows="5"
+                  required
+                  aria-required="true"
+                  aria-describedby="mensaje-error"
+                ></textarea>
+                <span class="form-error" id="mensaje-error" role="alert">
+                  Por favor, escribe tu mensaje.
+                </span>
+              </div>
+
+              <!-- Botón enviar -->
+              <button
+                type="submit"
+                class="btn btn-submit"
+                aria-label="Enviar mensaje por correo electrónico"
+              >
+                <span aria-hidden="true">🚀</span>
+                Enviar mensaje
+              </button>
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ======================================
+       6. PIE DE PÁGINA
+       ====================================== -->
+  <footer aria-label="Pie de página">
+    <div class="container">
+
+      <div class="footer-inner">
+
+        <!-- Marca / dirección / autor -->
+        <div class="footer-brand">
+          <strong>
+            <span class="accent-blue">⚡ Somorrostro</span> FP Básica Informática
+          </strong>
+          <small>
+            <span aria-label="Dirección del centro">📍 San Juan 10, Muskiz, Bizkaia</span>
+          </small>
+          <small style="margin-top:0.25rem;">
+            Creado por <span class="accent-orange">Lander</span>
+            — Alumno de 2.º FP Básica
+          </small>
+        </div>
+
+        <!-- Enlace a GitHub y portfolio -->
+        <nav class="footer-links" aria-label="Enlaces externos">
+          <a
+            href="https://github.com/Lander272727"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil de GitHub (se abre en nueva pestaña)"
+          >
+            <!-- SVG GitHub mark -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/>
+            </svg>
+            GitHub
+          </a>
+          <a
+            href="https://curriculm-kappa.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Portfolio personal (se abre en nueva pestaña)"
+          >
+            <span aria-hidden="true">🌐</span>
+            Mi Portfolio
+          </a>
+        </nav>
+
+      </div>
+
+      <!-- Copyright -->
+      <p class="footer-copy">
+        &copy; <span id="year"></span> Centro de Formación Somorrostro &mdash;
+        Contenido educativo creado por el alumnado de 2.º FP Básica de Informática.
+      </p>
+
+    </div>
+  </footer>
+
+
+  <!-- ======================================
+       JAVASCRIPT
+       ====================================== -->
+  <script>
+    'use strict';
+
+    /* -----------------------------------------------
+       AÑO DINÁMICO EN EL PIE DE PÁGINA
+       ----------------------------------------------- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+
+    /* -----------------------------------------------
+       CUENTA ATRÁS AL PRÓXIMO VIERNES A LAS 14:00
+       Reglas:
+         - Si HOY es viernes y aún no son las 14:00 → target = hoy 14:00
+         - En cualquier otro caso → target = próximo viernes 14:00
+       ----------------------------------------------- */
+    function getTargetFriday() {
+      const now = new Date();
+      const day = now.getDay(); // 0=dom … 5=vie … 6=sáb
+
+      const target = new Date(now);
+      target.setHours(14, 0, 0, 0); // Siempre a las 14:00:00
+
+      if (day === 5) {
+        // Es viernes — ¿antes de las 14:00?
+        if (now < target) return target; // Este viernes aún
+        // Pasamos las 14:00 del viernes → siguiente viernes
+        target.setDate(target.getDate() + 7);
+        return target;
+      }
+
+      // Días hasta el próximo viernes
+      const daysUntilFriday = (5 - day + 7) % 7 || 7;
+      target.setDate(target.getDate() + daysUntilFriday);
+      return target;
+    }
+
+    // Rellena con cero inicial
+    function pad2(n) { return String(n).padStart(2, '0'); }
+
+    // Referencias a elementos del DOM
+    const cdDays    = document.getElementById('cd-days');
+    const cdHours   = document.getElementById('cd-hours');
+    const cdMinutes = document.getElementById('cd-minutes');
+    const cdSeconds = document.getElementById('cd-seconds');
+    const cdLabel   = document.getElementById('cd-target-label');
+    const cdMsg     = document.getElementById('cd-msg');
+
+    const DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
+                   'agosto','septiembre','octubre','noviembre','diciembre'];
+
+    function updateCountdown() {
+      const target   = getTargetFriday();
+      const now      = new Date();
+      const diffMs   = target - now;
+
+      // Etiqueta de fecha objetivo
+      cdLabel.textContent =
+        `↓ Objetivo: ${DIAS[target.getDay()]} ${target.getDate()} de ` +
+        `${MESES[target.getMonth()]} · ${pad2(target.getHours())}:${pad2(target.getMinutes())} h`;
+
+      if (diffMs <= 0) {
+        // ¡Llegamos!
+        [cdDays, cdHours, cdMinutes, cdSeconds].forEach(el => el.textContent = '00');
+        cdMsg.innerHTML = '🎉 <strong>¡LIBERTAD!</strong> Ya son las 14:00 del viernes. ¡A disfrutar el finde!';
+        return;
+      }
+
+      const totalSecs = Math.floor(diffMs / 1000);
+      const days      = Math.floor(totalSecs / 86400);
+      const hours     = Math.floor((totalSecs % 86400) / 3600);
+      const minutes   = Math.floor((totalSecs % 3600) / 60);
+      const seconds   = totalSecs % 60;
+
+      cdDays.textContent    = pad2(days);
+      cdHours.textContent   = pad2(hours);
+      cdMinutes.textContent = pad2(minutes);
+      cdSeconds.textContent = pad2(seconds);
+
+      // Pulso naranja cuando queda menos de 1 minuto
+      const allNums = [cdDays, cdHours, cdMinutes, cdSeconds];
+      if (totalSecs < 60) {
+        allNums.forEach(el => el.classList.add('pulse'));
+        cdMsg.innerHTML = '🔥 <strong>¡Ya casi! ¡Aguanta un poco más!</strong>';
+      } else {
+        allNums.forEach(el => el.classList.remove('pulse'));
+        cdMsg.innerHTML = 'Aguanta — <strong>¡el fin de semana llega!</strong>';
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000); // Actualizar cada segundo
+
+
+    /* -----------------------------------------------
+       VALIDACIÓN DEL FORMULARIO
+       ----------------------------------------------- */
+    const form = document.getElementById('contact-form');
+
+    // Valida un campo; devuelve true si es válido
+    function validateField(input) {
+      const errorEl = document.getElementById(input.id + '-error');
+      let isValid;
+
+      if (input.type === 'email') {
+        // Expresión regular básica para email
+        isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      } else {
+        isValid = input.value.trim().length > 0;
+      }
+
+      input.classList.toggle('valid',   isValid);
+      input.classList.toggle('invalid', !isValid);
+      if (errorEl) errorEl.classList.toggle('visible', !isValid);
+
+      return isValid;
+    }
+
+    // Validar al perder el foco
+    form.querySelectorAll('input, textarea').forEach(field => {
+      field.addEventListener('blur', () => validateField(field));
+      // Limpiar error al empezar a escribir de nuevo
+      field.addEventListener('input', () => {
+        if (field.classList.contains('invalid')) validateField(field);
+      });
+    });
+
+    // Validar al enviar
+    form.addEventListener('submit', function(e) {
+      const fields = Array.from(form.querySelectorAll('input, textarea'));
+      const allOk  = fields.every(f => validateField(f));
+
+      if (!allOk) {
+        e.preventDefault(); // Bloquear envío si hay errores
+        const firstInvalid = fields.find(f => f.classList.contains('invalid'));
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // Todo correcto → mostrar confirmación (el mailto: se abre de todas formas)
+      document.getElementById('form-success').classList.add('visible');
+      form.style.display = 'none';
+    });
+
+
+    /* -----------------------------------------------
+       ANIMACIÓN DE ENTRADA (Intersection Observer)
+       ----------------------------------------------- */
+    const revealEls = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              io.unobserve(entry.target); // Animar solo la primera vez
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      // Fallback: mostrar todo si el navegador no soporta IntersectionObserver
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+
+
+    /* -----------------------------------------------
+       MODALES CON TABS INTERNOS
+       Cada modal tiene 4 tabs (Descripción, Reto,
+       Herramientas, Nivel) con slider horizontal.
+       ----------------------------------------------- */
+
+    // ── Helpers ──────────────────────────────────────
+    const overlays = document.querySelectorAll('.modal-overlay');
+
+    // Mueve el slider al panel indicado y actualiza tabs activos
+    function activateTab(modal, index) {
+      const slider  = modal.querySelector('.tab-slider');
+      const tabs    = modal.querySelectorAll('.tab-btn');
+      const panels  = modal.querySelectorAll('.tab-panel');
+
+      // Deslizar el contenedor
+      slider.style.transform = `translateX(-${index * 100}%)`;
+
+      // Actualizar estado de tabs
+      tabs.forEach((btn, i) => {
+        const isActive = i === index;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', String(isActive));
+      });
+
+      // Resetear scroll del panel activo
+      if (panels[index]) panels[index].scrollTop = 0;
+
+      // Animar barras de nivel del panel activo
+      panels[index].querySelectorAll('.level-fill').forEach(bar => {
+        bar.style.width = '0%';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          bar.style.width = (bar.dataset.width || '0') + '%';
+        }));
+      });
+    }
+
+    // ── Abrir modal ──────────────────────────────────
+    function openModal(id) {
+      const overlay = document.getElementById('modal-' + id);
+      if (!overlay) return;
+
+      document.body.style.overflow = 'hidden';
+      overlay.classList.add('open');
+
+      // Resetear al primer tab siempre
+      activateTab(overlay, 0);
+
+      // Foco accesible
+      const closeBtn = overlay.querySelector('.modal-close');
+      if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
+    }
+
+    // ── Cerrar modal ─────────────────────────────────
+    function closeModal(overlay) {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ── Click en tarjeta → abrir modal ───────────────
+    document.querySelectorAll('[data-modal]').forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.modal));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(card.dataset.modal);
+        }
+      });
+    });
+
+    // ── Tabs internos de cada modal ───────────────────
+    document.querySelectorAll('.modal-tabs').forEach(tabNav => {
+      tabNav.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modal = btn.closest('.modal-overlay');
+          activateTab(modal, Number(btn.dataset.tab));
+        });
+        // Navegación con teclado (←→)
+        btn.addEventListener('keydown', e => {
+          const modal  = btn.closest('.modal-overlay');
+          const allBtns = Array.from(modal.querySelectorAll('.tab-btn'));
+          const idx    = allBtns.indexOf(btn);
+          if (e.key === 'ArrowRight') { e.preventDefault(); allBtns[(idx + 1) % allBtns.length].focus(); }
+          if (e.key === 'ArrowLeft')  { e.preventDefault(); allBtns[(idx - 1 + allBtns.length) % allBtns.length].focus(); }
+        });
+      });
+    });
+
+    // ── Botones cerrar ────────────────────────────────
+    document.querySelectorAll('.modal-close').forEach(btn => {
+      btn.addEventListener('click', () => closeModal(btn.closest('.modal-overlay')));
+    });
+
+    // ── Clic en fondo del overlay ─────────────────────
+    overlays.forEach(overlay => {
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) closeModal(overlay);
+      });
+    });
+
+    // ── Tecla Escape ─────────────────────────────────
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        overlays.forEach(overlay => {
+          if (overlay.classList.contains('open')) closeModal(overlay);
+        });
+      }
+    });
+
+  </script>
+
+</body>
+</html>
